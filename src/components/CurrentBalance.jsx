@@ -1,6 +1,9 @@
+import { useState } from "react";
 import Card from "./Card";
 
 function CurrentBalance() {
+    const [state, setState] = useState(0);
+
     return (
         <Card>
             <header className="flex flex-col mx-auto items-center">
