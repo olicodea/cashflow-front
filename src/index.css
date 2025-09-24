@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+body {
+    font-family: "Roboto", sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+}
+
+li {
+    list-style: none;
+}
+
+.input {
+    @apply border-1 border-gray-600 rounded px-2 py-1;
+}
