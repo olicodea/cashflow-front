@@ -35,7 +35,7 @@ const initialValue = {
 
 function AddTransaction() {
     const [formState, setFormState] = useState(initialValue);
-    const { setData } = useData();
+    const { setTransactions } = useData();
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -64,7 +64,7 @@ function AddTransaction() {
             date: new Date().toLocaleDateString("es-AR"),
         };
 
-        setData((prevData) => [...prevData, newTransaction]);
+        setTransactions((prevData) => [...prevData, newTransaction]);
         setFormState(initialValue);
     };
 
@@ -118,7 +118,7 @@ function AddTransaction() {
                     value={formState.category}
                     onChange={handleChange}
                 >
-                    <option value="">Selecciona una categoría</option>
+                    <option value="" className="bg-gray-700">Selecciona una categoría</option>
                     {categories.map((category) => (
                         <option
                             key={category.id}

@@ -7,14 +7,14 @@ const getFromLocalStorage = (item) => {
 };
 
 const DataProvider = ({ children }) => {
-    const [data, setData] = useState(getFromLocalStorage("transactions"));
+    const [transactions, setTransactions] = useState(getFromLocalStorage("transactions"));
 
     useEffect(() => {
-        localStorage.setItem("transactions", JSON.stringify(data));
-    }, [data]);
+        localStorage.setItem("transactions", JSON.stringify(transactions));
+    }, [transactions]);
 
     return (
-        <DataContext.Provider value={{ data, setData }}>
+        <DataContext.Provider value={{ transactions, setTransactions }}>
             {children}
         </DataContext.Provider>
     );
