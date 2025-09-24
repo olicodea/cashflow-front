@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { useData } from "../context/DataContext";
 import Card from "./Card";
+import { formatCurrency } from "../utils/currency";
 
 function CurrentBalance() {
     const [balanceState, setBalanceState] = useState({
@@ -9,12 +10,6 @@ function CurrentBalance() {
         expenses: 0,
     });
     const { transactions } = useData();
-
-    const formatCurrency = (amount) =>
-        amount.toLocaleString("es-AR", {
-            style: "currency",
-            currency: "ARS",
-        });
 
     useMemo(() => {
         let totalIncome = 0;
