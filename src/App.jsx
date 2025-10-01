@@ -1,7 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import DataProvider from "./context/DataProvider";
+
 import MainLayout from "./layouts/MainLayout";
 import { Transactions } from "./pages/Transactions";
+
 import { Categories } from "./pages/Categories";
 
 function App() {
