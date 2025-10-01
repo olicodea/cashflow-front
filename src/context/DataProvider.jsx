@@ -14,6 +14,7 @@ const DataProvider = ({ children }) => {
         getFromLocalStorage("categories")
     );
     const [incomeCategories, setIncomeCategories] = useState([]);
+    
     const [expenseCategories, setExpenseCategories] = useState([]);
 
     useEffect(() => {
