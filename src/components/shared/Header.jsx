@@ -1,6 +1,6 @@
-import Navbar from "./Navbar";
+import { Navbar } from "./Navbar";
 
-function Header() {
+export function Header() {
     return (
         <header className="flex justify-between items-center">
             <h1 className="text-xl">Cashflow</h1>
@@ -8,5 +8,3 @@ function Header() {
         </header>
     );
 }
-
-export default Header;
