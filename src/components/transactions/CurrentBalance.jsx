@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
-import { useData } from "../context/DataContext";
-import Card from "./Card";
-import { formatCurrency } from "../utils/currency";
+import { useData } from "../../context/DataContext";
+import { Card } from "../shared/Card";
+import { formatCurrency } from "../../utils/currency";
 
-function CurrentBalance() {
+export function CurrentBalance() {
     const [balanceState, setBalanceState] = useState({
         balance: 0,
         income: 0,
@@ -59,5 +59,3 @@ function CurrentBalance() {
         </Card>
     );
 }
-
-export default CurrentBalance;

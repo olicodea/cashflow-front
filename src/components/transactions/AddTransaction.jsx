@@ -1,30 +1,6 @@
-import { useState } from "react";
-import Card from "./Card";
-import { useData } from "../context/DataContext";
-
-const categories = [
-    {
-        id: 1,
-        description: "Salario",
-        type: "income",
-    },
-
-    {
-        id: 2,
-        description: "Freelance",
-        type: "income",
-    },
-    {
-        id: 3,
-        description: "Comida",
-        type: "food",
-    },
-    {
-        id: 4,
-        description: "Transporte",
-        type: "transport",
-    },
-];
+import { Card } from "../shared/Card";
+import { useData } from "../../context/DataContext";
+import { useHandleChange } from "../../hooks/useHandleChange";
 
 const initialValue = {
     type: "",
@@ -33,23 +9,23 @@ const initialValue = {
     description: "",
 };
 
-function AddTransaction() {
-    const [formState, setFormState] = useState(initialValue);
-    const { setTransactions } = useData();
+export function AddTransaction() {
+    const { state, resetForm, handleChange } = useHandleChange(initialValue);
+    const { categories, setTransactions } = useData();
 
-    const handleChange = (event) => {
+    const handleInputChange = (event) => {
         const { name, value } = event.target;
-        setFormState((prev) => ({ ...prev, [name]: value }));
+        handleChange(name, value);
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
         if (
-            !formState.type ||
-            !formState.amount ||
-            !formState.category ||
-            !formState.description
+            !state.type ||
+            !state.amount ||
+            !state.category ||
+            !state.description
         ) {
             console.error("Por favor completa todos los campos");
             return;
@@ -57,15 +33,15 @@ function AddTransaction() {
 
         const newTransaction = {
             id: crypto.randomUUID(),
-            type: formState.type,
-            amount: parseFloat(formState.amount),
-            category: formState.category,
-            description: formState.description,
+            type: state.type,
+            amount: parseFloat(state.amount),
+            category: state.category,
+            description: state.description,
             date: new Date().toLocaleDateString("es-AR"),
         };
 
         setTransactions((prevData) => [...prevData, newTransaction]);
-        setFormState(initialValue);
+        resetForm();
     };
 
     return (
@@ -75,13 +51,13 @@ function AddTransaction() {
                 className="grid grid-cols-2 gap-2"
                 onSubmit={handleSubmit}
             >
-                <p className="col-span-2">Type</p>
+                <p className="col-span-2">Tipo</p>
                 <label className="col-span-1 flex gap-2">
                     <input
                         type="radio"
                         name="type"
                         value="income"
-                        onChange={handleChange}
+                        onChange={handleInputChange}
                     />
                     Ingreso
                 </label>
@@ -90,7 +66,7 @@ function AddTransaction() {
                         type="radio"
                         name="type"
                         value="expense"
-                        onChange={handleChange}
+                        onChange={handleInputChange}
                     />
                     Gasto
                 </label>
@@ -104,8 +80,8 @@ function AddTransaction() {
                     name="amount"
                     placeholder="0,00"
                     className="col-span-2 input"
-                    value={formState.amount}
-                    onChange={handleChange}
+                    value={state.amount}
+                    onChange={handleInputChange}
                 />
 
                 <label htmlFor="category" className="col-span-2">
@@ -115,19 +91,23 @@ function AddTransaction() {
                     id="category"
                     name="category"
                     className="col-span-2 input"
-                    value={formState.category}
-                    onChange={handleChange}
+                    value={state.category}
+                    onChange={handleInputChange}
                 >
-                    <option value="" className="bg-gray-700">Selecciona una categoría</option>
-                    {categories.map((category) => (
-                        <option
-                            key={category.id}
-                            value={category.description}
-                            className="bg-gray-700"
-                        >
-                            {category.description}
-                        </option>
-                    ))}
+                    <option value="" className="bg-gray-700">
+                        Selecciona una categoría
+                    </option>
+                    {categories
+                        .filter((category) => category.type === state.type)
+                        .map((category) => (
+                            <option
+                                key={category.id}
+                                value={category.name}
+                                className="bg-gray-700"
+                            >
+                                {category.name}
+                            </option>
+                        ))}
                 </select>
 
                 <label htmlFor="description" className="col-span-2">
@@ -139,8 +119,8 @@ function AddTransaction() {
                     name="description"
                     className="col-span-2 input"
                     placeholder="Escribe la descripción..."
-                    value={formState.description}
-                    onChange={handleChange}
+                    value={state.description}
+                    onChange={handleInputChange}
                 />
 
                 <input
@@ -152,5 +132,3 @@ function AddTransaction() {
         </Card>
     );
 }
-
-export default AddTransaction;

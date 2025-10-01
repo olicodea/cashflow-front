@@ -1,6 +1,6 @@
-import { useData } from "../context/DataContext";
-import { formatCurrency } from "../utils/currency";
-import Card from "./Card";
+import { useData } from "../../context/DataContext";
+import { formatCurrency } from "../../utils/currency";
+import { Card } from "../shared/Card";
 
 export function TransactionHistory() {
     const { transactions } = useData();

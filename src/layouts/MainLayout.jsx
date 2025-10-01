@@ -1,5 +1,5 @@
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+import { Header } from "../components/shared/Header";
+import { Footer } from "../components/shared/Footer";
 
 function MainLayout({ children }) {
     return (
